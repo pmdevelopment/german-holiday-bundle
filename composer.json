@@ -1,0 +1,21 @@
+{
+    "name": "pmdevelopment/german-holiday-bundle",
+    "description": "German Holidays",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sven Joder",
+            "email": "sj@pmdevelopment.de"
+        }
+    ],
+    "require": {
+        "php": "^5.5.0",
+    },
+    "autoload": {
+        "psr-0": {
+            "PM\\Bundle\\GermanHolidayBundle": ""
+        }
+    },
+    "target-dir": "PM/Bundle/GermanHolidayBundle"
+}
+
