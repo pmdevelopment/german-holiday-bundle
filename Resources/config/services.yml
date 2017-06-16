@@ -1,0 +1,3 @@
+services:
+    pm_german_holiday.services.holiday_service:
+        class: PM\Bundle\GermanHolidayBundle\Services\HolidayService
