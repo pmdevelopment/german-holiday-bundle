@@ -1,3 +1,8 @@
 services:
     pm_german_holiday.services.holiday_service:
         class: PM\Bundle\GermanHolidayBundle\Services\HolidayService
+
+    pm_german_holiday.twig.holiday_twig_extension:
+        class: PM\Bundle\GermanHolidayBundle\Twig\HolidayTwigExtension
+        tags:
+            - { name: twig.extension }
