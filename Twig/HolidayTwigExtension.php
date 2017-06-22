@@ -121,7 +121,7 @@ class HolidayTwigExtension extends \Twig_Extension
                     continue;
                 }
 
-                if(true === $excludeHolidays && 5 < $date->format('N')){
+                if (true === $excludeHolidays && 5 < $date->format('N')) {
                     continue;
                 }
 

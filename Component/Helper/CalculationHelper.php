@@ -314,4 +314,23 @@ class CalculationHelper
 
         return self::$method($year);
     }
+
+    /**
+     * Is Holiday
+     *
+     * @param DateTime $day
+     * @param string   $state
+     *
+     * @return bool
+     */
+    public static function isHoliday(DateTime $day, $state)
+    {
+        foreach (Holidays::getByState($state, $day->format('Y')) as $holidayName) {
+            if (self::getByHoliday($holidayName, $day->format('Y'))->format('Y-m-d') === $day->format('Y-m-d')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
