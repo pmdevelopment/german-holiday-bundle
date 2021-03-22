@@ -13,6 +13,9 @@ use PM\Bundle\GermanHolidayBundle\Component\Constants\Holidays;
 use PM\Bundle\GermanHolidayBundle\Component\Constants\States;
 use PM\Bundle\GermanHolidayBundle\Component\Helper\CalculationHelper;
 use PM\Bundle\GermanHolidayBundle\Component\Model\Holiday;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 
 /**
@@ -20,7 +23,7 @@ use PM\Bundle\GermanHolidayBundle\Component\Model\Holiday;
  *
  * @package PM\Bundle\GermanHolidayBundle\Twig
  */
-class HolidayTwigExtension extends \Twig_Extension
+class HolidayTwigExtension extends AbstractExtension
 {
     /**
      * Get Filters
@@ -30,14 +33,14 @@ class HolidayTwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter(
+            new TwigFilter(
                 'pm_holiday_get_states',
                 [
                     $this,
                     'getStates',
                 ]
             ),
-            new \Twig_SimpleFilter(
+            new TwigFilter(
                 'pm_holiday_is_countrywide',
                 [
                     $this,
@@ -55,7 +58,7 @@ class HolidayTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'pm_holiday_by_range',
                 [
                     $this,
