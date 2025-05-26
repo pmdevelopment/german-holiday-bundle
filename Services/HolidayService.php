@@ -1,35 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sjoder
- * Date: 15.06.2017
- * Time: 16:43
- */
 
 namespace PM\Bundle\GermanHolidayBundle\Services;
 
-use _PHPStan_ac6dae9b0\Symfony\Component\Console\Exception\LogicException;
 use PM\Bundle\GermanHolidayBundle\Component\Constants\Holidays;
 use PM\Bundle\GermanHolidayBundle\Component\Constants\Zips;
 use PM\Bundle\GermanHolidayBundle\Component\Helper\CalculationHelper;
 use PM\Bundle\GermanHolidayBundle\Component\Model\Holiday;
 
-
-/**
- * Class HolidayService
- *
- * @package PM\Bundle\GermanHolidayBundle\Services
- */
 class HolidayService
 {
     /**
-     * Get all
-     *
-     * @param null|integer $year
-     *
      * @return array|\PM\Bundle\GermanHolidayBundle\Component\Model\Holiday[]
      */
-    public function getAll(int $year = null, string $state = null)
+    public function getAll(?int $year = null, ?string $state = null): array
     {
         if (null === $year) {
             $year = date('Y');
@@ -51,20 +34,11 @@ class HolidayService
             }
         }
 
-
         return $result;
     }
 
-    public function getHoliday(\DateTimeImmutable $date, ?string $state = null, ?string $zip = null): ?string
+    public function getHoliday(\DateTimeImmutable $date, string $state): ?string
     {
-        if(null !== $zip){
-            $state = Zips::getState($zip);
-        }
-        
-        if(null === $state){
-            throw new LogicException('Not a valid german state or zipcode');
-        }
-
         foreach ($this->getAll($date->format('Y'), $state) as $holiday) {
             if(true === $holiday->isThisDate($date)){
                 return $holiday->getName();
@@ -74,8 +48,24 @@ class HolidayService
         return null;
     }
 
-    public function isHoliday(\DateTimeImmutable $date, ?string $state = null, ?string $zip = null): bool
+    public function isHoliday(\DateTimeImmutable $date, string $state): bool
     {
-        return $this->getHoliday($date, $state, $zip) !== null;
+        return $this->getHoliday($date, $state) !== null;
+    }
+    
+    public function getHolidayByZip(\DateTimeImmutable $date, string $zip): ?string
+    {
+        $state = Zips::getState($zip);
+
+        if(null === $state){
+            throw new \LogicException('Not a valid german state or zipcode');
+        }
+        
+        return $this->getHoliday($date, $state);
+    }
+
+    public function isHolidayByZip(\DateTimeImmutable $date, string $zip): bool
+    {
+        return $this->getHolidayByZip($date, $zip) !== null;
     }
 }
