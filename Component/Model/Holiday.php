@@ -93,4 +93,12 @@ class Holiday
         return $this;
     }
 
+    public function isThisDate(\DateTimeImmutable $date)
+    {
+        if ($this->getDay()->format('Y-m-d') === $date->format('Y-m-d')) {
+            return true;
+        }
+        
+        return false;
+    }
 }
